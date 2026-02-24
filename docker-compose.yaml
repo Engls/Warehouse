@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: ./db
+    container_name: warehouse-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - warehouse-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d warehouse"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: 
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: warehouse-app
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      PORT: 3000
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - warehouse-network
+
+
+networks:
+  warehouse-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
