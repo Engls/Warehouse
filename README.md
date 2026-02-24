@@ -16,16 +16,16 @@ Docker
 
 ## GET:
 
-/api/products - получить информацию о всех товарах
-/api/products/{id} - получить информацию о товаре по id
-/api/products/:id/transactions - получить историю движения товара 
-/api/analytics - получить аналитику склада
-/api/categories - получить информацию о категориях
-/health - проверить работоспособность
+### /api/products - получить информацию о всех товарах
+### /api/products/{id} - получить информацию о товаре по id
+### /api/products/:id/transactions - получить историю движения товара 
+### /api/analytics - получить аналитику склада
+### /api/categories - получить информацию о категориях
+### /health - проверить работоспособность
 
 ## POST:
 
-/api/products - создать новый товар 
+### /api/products - создать новый товар 
 Пример тела запроса:
 {
     "name": "Название товара",
@@ -36,13 +36,13 @@ Docker
     "min_quantity": Минимальный остаток товара,
     "price": Цена товара
 }
-/api/products/:id/stock/in - добавить товар на склад
+### /api/products/:id/stock/in - добавить товар на склад
 Пример тела запроса:
 {
     "quantity": Количество,
     "notes": "Описание"
 }
-/api/products/:id/stock/out - списать товар со склада
+### /api/products/:id/stock/out - списать товар со склада
 Пример тела запроса:
 {
     "quantity": 2,
@@ -51,7 +51,7 @@ Docker
 
 ## PUT:
 
-/api/products/:id - Обновить информацию о товаре
+### /api/products/:id - Обновить информацию о товаре
 Пример тела запроса:
 {
     "name": "Название товара",
@@ -63,5 +63,5 @@ Docker
     "price": Цена товара
 }
 ## DELETE:
-/api/products/:id - Удалить товар
+### /api/products/:id - Удалить товар
 
