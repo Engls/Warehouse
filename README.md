@@ -1,20 +1,21 @@
-## Warehouse-invetory-api
+# Warehouse-invetory-api
 
 Прилоежнеи созданное для контроля имущества на складе  техники
 
-## Технологии
+# Технологии
 
 backend: NodeJs + Express
 database: PostgresSql
 Контейнеризация: Docker
 
-## Необходимый софт
+# Необходимый софт
 
 Docker
 
-## API-Эндпоинты
+# API-Эндпоинты
 
-GET:
+## GET:
+
 /api/products - получить информацию о всех товарах
 /api/products/{id} - получить информацию о товаре по id
 /api/products/:id/transactions - получить историю движения товара 
@@ -22,7 +23,8 @@ GET:
 /api/categories - получить информацию о категориях
 /health - проверить работоспособность
 
-POST:
+## POST:
+
 /api/products - создать новый товар 
 Пример тела запроса:
 {
@@ -46,7 +48,9 @@ POST:
     "quantity": 2,
     "notes": "Продажа клиенту"
 }
-PUT:
+
+## PUT:
+
 /api/products/:id - Обновить информацию о товаре
 Пример тела запроса:
 {
@@ -58,6 +62,6 @@ PUT:
     "min_quantity": Минимальный остаток товара,
     "price": Цена товара
 }
-DELETE:
+## DELETE:
 /api/products/:id - Удалить товар
 
