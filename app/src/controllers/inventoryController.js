@@ -277,28 +277,23 @@ const removeStock = async (req, res) => {
 
 const getAnalytics = async (req, res) => {
     try {
-        // Total products count
         const totalProducts = await db.query('SELECT COUNT(*) FROM products');
         
-        // Low stock products
         const lowStock = await db.query(`
             SELECT COUNT(*) FROM products 
             WHERE quantity <= min_quantity
         `);
         
-        // Out of stock products
         const outOfStock = await db.query(`
             SELECT COUNT(*) FROM products 
             WHERE quantity = 0
         `);
         
-        // Total inventory value
         const totalValue = await db.query(`
             SELECT SUM(quantity * price) as total_value 
             FROM products
         `);
         
-        // Recent transactions (last 30 days)
         const recentTransactions = await db.query(`
             SELECT 
                 DATE(created_at) as date,
@@ -311,7 +306,6 @@ const getAnalytics = async (req, res) => {
             ORDER BY date DESC
         `);
         
-        // Top products by movement - ИСПРАВЛЕННЫЙ ЗАПРОС
         const topMovements = await db.query(`
             SELECT 
                 p.name,
