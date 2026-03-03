@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const inventoryRoutes = require('./routes/inventory');
+const db = require('./models/db')
 
 const app = express();
 const PORT = process.env.PORT;
@@ -11,7 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
+
+
 app.use((req, res, next) => {
+     if (db.isShutingdown()) {
+        return res.status(503).json({ error: 'Server is shutting down' });
+    }
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
     next();
 });

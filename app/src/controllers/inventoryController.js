@@ -373,7 +373,19 @@ const getProductTransactions = async (req, res) => {
     }
 };
 
+const testShutdown = async (req, res) => {
+    try {
+        await db.query('SELECT pg_sleep(15)');
+        console.log('Slow query finished');
+        res.json({ message: 'Slow query completed' });
+    } catch (error) {
+        console.error('Slow query error:', error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
+    testShutdown,
     getAllProducts,
     getProductById,
     createProduct,

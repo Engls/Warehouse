@@ -17,4 +17,6 @@ router.get('/categories', controller.getCategories);
 
 router.get('/analytics', controller.getAnalytics);
 
+router.get(`/testShutdown`, controller.testShutdown);
+
 module.exports = router;

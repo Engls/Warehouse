@@ -7,8 +7,6 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      []
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -28,17 +26,18 @@ services:
       - "3000:3000"
     environment:
       DB_HOST: ${DB_HOST}
-      DB_PORT: 5432
+      DB_PORT: ${DB_PORT}
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-      PORT: 3000
-      NODE_ENV: production
+      PORT: ${PORT}
+      NODE_ENV: ${NODE_ENV}
     depends_on:
       postgres:
         condition: service_healthy
     networks:
       - warehouse-network
+    stop_grace_period: 30s
 
 
 networks:
