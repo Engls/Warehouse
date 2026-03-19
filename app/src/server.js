@@ -1,46 +1,38 @@
 const express = require('express');
 const cors = require('cors');
 const inventoryRoutes = require('./routes/inventory');
-const db = require('./models/db')
+const db = require('./models/db');
 
 const app = express();
-const PORT = process.env.PORT;
-
+const { PORT } = process.env;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
-
 app.use((req, res, next) => {
-     if (db.isShutingdown()) {
-        return res.status(503).json({ error: 'Server is shutting down' });
-    }
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-    next();
+  if (db.isShutingdown()) {
+    return res.status(503).json({ error: 'Server is shutting down' });
+  }
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  next();
 });
-
 
 app.use('/api', inventoryRoutes);
 
-
 app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
-
 
 app.use((req, res) => {
-    res.status(404).json({ error: 'Route not found' });
+  res.status(404).json({ error: 'Route not found' });
 });
 
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Something went wrong!' });
+app.use((err, req, res) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const controller = require('../controllers/inventoryController');
 
@@ -17,6 +18,6 @@ router.get('/categories', controller.getCategories);
 
 router.get('/analytics', controller.getAnalytics);
 
-router.get(`/testShutdown`, controller.testShutdown);
+router.get('/testShutdown', controller.testShutdown);
 
 module.exports = router;
