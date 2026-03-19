@@ -1,20 +1,48 @@
 {
   "name": "warehouse-inventory-api",
   "version": "1.0.0",
-  "description": "Warehouse ",
+  "description": "Warehouse Inventory API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "lint": "eslint src/",
+    "test": "jest --coverage --forceExit"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "pg": "^8.11.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "joi": "^17.11.0"
+    "express": "^4.18.2",
+    "joi": "^17.11.0",
+    "pg": "^8.11.3"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.4"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "lines": 50
+      }
+    },
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/"
+    ],
+    "coverageReporters": [
+      "text",
+      "html",
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "controllers/*.js",
+      "models/*.js"
+    ]
   }
 }
