@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./app   
+    working-directory: ./app/src  
 
 jobs:
   install:
@@ -23,7 +23,7 @@ jobs:
       - run: npm ci
       - uses: actions/cache@v3
         with:
-          path: app/node_modules
+          path: app/src/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('app/src/package-lock.json') }}
 
   lint:
