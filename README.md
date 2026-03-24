@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/Engls/Warehouse/branch/main/graph/badge.svg)](https://codecov.io/gh/Engls/Warehouse)
 # Warehouse-invetory-api
 
 Прилоежнеи созданное для контроля имущества на складе  техники
