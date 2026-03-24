@@ -423,6 +423,25 @@ const testShutdown = async (req, res) => {
   }
 };
 
+const testMethod2 = async (req,res) => {
+  console.log("test ")
+}
+const testMethod3 = async (req,res) => {
+  console.log("test ")
+}
+const testMethod4 = async (req,res) => {
+  console.log("test ")
+}
+const testMethod5 = async (req,res) => {
+  console.log("test ")
+}
+const testMethod6 = async (req,res) => {
+  console.log("test ")
+}
+const testMethod7 = async (req,res) => {
+  console.log("test ")
+}
+
 module.exports = {
   testShutdown,
   getAllProducts,
