@@ -226,51 +226,51 @@ describe('Inventory Controller', () => {
   //   });
   // });
 
-  // describe('removeStock', () => {
-  //   let mockClient;
+  describe('removeStock', () => {
+    let mockClient;
 
-  //   beforeEach(() => {
-  //     mockClient = {
-  //       query: jest.fn(),
-  //       release: jest.fn(),
-  //     };
-  //     db.pool.connect.mockResolvedValue(mockClient);
-  //     req.body = { product_id: 1, quantity: 5, notes: 'test' };
-  //   });
+    beforeEach(() => {
+      mockClient = {
+        query: jest.fn(),
+        release: jest.fn(),
+      };
+      db.pool.connect.mockResolvedValue(mockClient);
+      req.body = { product_id: 1, quantity: 5, notes: 'test' };
+    });
 
-  //   it('should remove stock successfully', async () => {
-  //     mockClient.query
-  //       .mockResolvedValueOnce()
-  //       .mockResolvedValueOnce({ rows: [{ quantity: 10, name: 'Prod' }] })
-  //       .mockResolvedValueOnce()
-  //       .mockResolvedValueOnce({ rows: [{ id: 101 }] })
-  //       .mockResolvedValueOnce();
+    it('should remove stock successfully', async () => {
+      mockClient.query
+        .mockResolvedValueOnce()
+        .mockResolvedValueOnce({ rows: [{ quantity: 10, name: 'Prod' }] })
+        .mockResolvedValueOnce()
+        .mockResolvedValueOnce({ rows: [{ id: 101 }] })
+        .mockResolvedValueOnce();
 
-  //     await removeStock(req, res);
+      await removeStock(req, res);
 
-  //     expect(mockClient.query).toHaveBeenCalledWith(
-  //       'UPDATE products SET quantity = $1 WHERE id = $2',
-  //       [5, 1],
-  //     );
-  //     expect(res.json).toHaveBeenCalledWith(
-  //       expect.objectContaining({ message: 'Stock removed successfully' }),
-  //     );
-  //   });
+      expect(mockClient.query).toHaveBeenCalledWith(
+        'UPDATE products SET quantity = $1 WHERE id = $2',
+        [5, 1],
+      );
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({ message: 'Stock removed successfully' }),
+      );
+    });
 
-  //   it('should return 400 if insufficient stock', async () => {
-  //     mockClient.query
-  //       .mockResolvedValueOnce()
-  //       .mockResolvedValueOnce({ rows: [{ quantity: 3, name: 'Prod' }] });
+    it('should return 400 if insufficient stock', async () => {
+      mockClient.query
+        .mockResolvedValueOnce()
+        .mockResolvedValueOnce({ rows: [{ quantity: 3, name: 'Prod' }] });
 
-  //     await removeStock(req, res);
+      await removeStock(req, res);
 
-  //     expect(mockClient.query).toHaveBeenCalledWith('ROLLBACK');
-  //     expect(res.status).toHaveBeenCalledWith(400);
-  //     expect(res.json).toHaveBeenCalledWith(
-  //       expect.objectContaining({ error: 'Insufficient stock' }),
-  //     );
-  //   });
-  // });
+      expect(mockClient.query).toHaveBeenCalledWith('ROLLBACK');
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({ error: 'Insufficient stock' }),
+      );
+    });
+  });
 
   describe('getAnalytics', () => {
     it('should return analytics data', async () => {
