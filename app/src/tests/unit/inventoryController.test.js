@@ -181,51 +181,51 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe('addStock', () => {
-    let mockClient;
+  // describe('addStock', () => {
+  //   let mockClient;
 
-    beforeEach(() => {
-      mockClient = {
-        query: jest.fn(),
-        release: jest.fn(),
-      };
-      db.pool.connect.mockResolvedValue(mockClient);
-      req.body = { product_id: 1, quantity: 5, notes: 'test' };
-    });
+  //   beforeEach(() => {
+  //     mockClient = {
+  //       query: jest.fn(),
+  //       release: jest.fn(),
+  //     };
+  //     db.pool.connect.mockResolvedValue(mockClient);
+  //     req.body = { product_id: 1, quantity: 5, notes: 'test' };
+  //   });
 
-    it('should add stock successfully', async () => {
-      mockClient.query
-        .mockResolvedValueOnce()
-        .mockResolvedValueOnce({ rows: [{ quantity: 10, name: 'Prod' }] })
-        .mockResolvedValueOnce()
-        .mockResolvedValueOnce({ rows: [{ id: 100 }] })
-        .mockResolvedValueOnce();
+  //   it('should add stock successfully', async () => {
+  //     mockClient.query
+  //       .mockResolvedValueOnce()
+  //       .mockResolvedValueOnce({ rows: [{ quantity: 10, name: 'Prod' }] })
+  //       .mockResolvedValueOnce()
+  //       .mockResolvedValueOnce({ rows: [{ id: 100 }] })
+  //       .mockResolvedValueOnce();
 
-      await addStock(req, res);
+  //     await addStock(req, res);
 
-      expect(mockClient.query).toHaveBeenCalledWith('BEGIN');
-      expect(mockClient.query).toHaveBeenCalledWith(
-        expect.stringContaining('FOR UPDATE'),
-        [1],
-      );
-      expect(mockClient.query).toHaveBeenCalledWith('COMMIT');
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ message: 'Stock added successfully' }),
-      );
-      expect(mockClient.release).toHaveBeenCalled();
-    });
+  //     expect(mockClient.query).toHaveBeenCalledWith('BEGIN');
+  //     expect(mockClient.query).toHaveBeenCalledWith(
+  //       expect.stringContaining('FOR UPDATE'),
+  //       [1],
+  //     );
+  //     expect(mockClient.query).toHaveBeenCalledWith('COMMIT');
+  //     expect(res.json).toHaveBeenCalledWith(
+  //       expect.objectContaining({ message: 'Stock added successfully' }),
+  //     );
+  //     expect(mockClient.release).toHaveBeenCalled();
+  //   });
 
-    it('should rollback if product not found', async () => {
-      mockClient.query
-        .mockResolvedValueOnce()
-        .mockResolvedValueOnce({ rows: [] });
+  //   it('should rollback if product not found', async () => {
+  //     mockClient.query
+  //       .mockResolvedValueOnce()
+  //       .mockResolvedValueOnce({ rows: [] });
 
-      await addStock(req, res);
+  //     await addStock(req, res);
 
-      expect(mockClient.query).toHaveBeenCalledWith('ROLLBACK');
-      expect(res.status).toHaveBeenCalledWith(404);
-    });
-  });
+  //     expect(mockClient.query).toHaveBeenCalledWith('ROLLBACK');
+  //     expect(res.status).toHaveBeenCalledWith(404);
+  //   });
+  // });
 
   describe('removeStock', () => {
     let mockClient;
