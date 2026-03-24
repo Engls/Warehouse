@@ -431,7 +431,7 @@ const untestedFunction1 = () => {
   const e = a - b;
   const g = c + d + e;
   return g;
-}
+};
 
 const untestedFunction2 = () => {
   const a = 5;
@@ -441,7 +441,7 @@ const untestedFunction2 = () => {
   const e = a - b;
   const g = c + d + e;
   return g;
-}
+};
 
 const untestedFunction3 = () => {
   const a = 5;
@@ -451,7 +451,7 @@ const untestedFunction3 = () => {
   const e = a - b;
   const g = c + d + e;
   return g;
-}
+};
 
 const untestedFunction4 = () => {
   const a = 5;
@@ -461,7 +461,7 @@ const untestedFunction4 = () => {
   const e = a - b;
   const g = c + d + e;
   return g;
-}
+};
 
 const untestedFunction5 = () => {
   const a = 5;
@@ -471,7 +471,7 @@ const untestedFunction5 = () => {
   const e = a - b;
   const g = c + d + e;
   return g;
-}
+};
 
 module.exports = {
   testShutdown,
