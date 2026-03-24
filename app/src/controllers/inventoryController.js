@@ -423,24 +423,41 @@ const testShutdown = async (req, res) => {
   }
 };
 
-const testMethod2 = async (req,res) => {
-  console.log("test ")
-}
-const testMethod3 = async (req,res) => {
-  console.log("test ")
-}
-const testMethod4 = async (req,res) => {
-  console.log("test ")
-}
-const testMethod5 = async (req,res) => {
-  console.log("test ")
-}
-const testMethod6 = async (req,res) => {
-  console.log("test ")
-}
-const testMethod7 = async (req,res) => {
-  console.log("test ")
-}
+const untestedFunction1 = () => {
+  const a = 1;
+  const b = 2;
+  const c = a + b;
+  const d = c * 10;
+  const e = d / 2;
+  return e;
+};
+
+const untestedFunction2 = () => {
+  const a = 1;
+  const b = 2;
+  const c = a + b;
+  const d = c * 10;
+  const e = d / 2;
+  return e;
+};
+
+const untestedFunction3 = () => {
+  const a = 1;
+  const b = 2;
+  const c = a + b;
+  const d = c * 10;
+  const e = d / 2;
+  return e;
+};
+
+const untestedFunction4 = () => {
+  const a = 1;
+  const b = 2;
+  const c = a + b;
+  const d = c * 10;
+  const e = d / 2;
+  return e;
+};
 
 module.exports = {
   testShutdown,
@@ -454,4 +471,8 @@ module.exports = {
   getAnalytics,
   getCategories,
   getProductTransactions,
+  untestedFunction1,
+  untestedFunction2,
+  untestedFunction3,
+  untestedFunction4,
 };
