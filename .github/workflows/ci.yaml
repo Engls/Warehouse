@@ -57,13 +57,11 @@ jobs:
         id: test
         continue-on-error: true
         run: |
-          cd app/src
           npm test 2>&1 | tee coverage-output.txt
     
       - name: Parse coverage percentage
         id: coverage
         run: |
-          cd app/src
           COVERAGE=$(grep -oP 'All files\s+\|\s+\K[0-9.]+' coverage-output.txt | head -1)
           if [ -z "$COVERAGE" ]; then
             COVERAGE=$(grep -oP '\|\s+([0-9.]+)\s+\|' coverage-output.txt | tail -1 | grep -oP '[0-9.]+')
