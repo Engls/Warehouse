@@ -423,53 +423,53 @@ const testShutdown = async (req, res) => {
   }
 };
 
-const untestedFunction1 = () =>{
-  const a = 5
-  const b = 6
+const untestedFunction1 = () => {
+  const a = 5;
+  const b = 6;
   const c = a * b;
   const d = a + b;
   const e = a - b;
-  const g = c + d + e
+  const g = c + d + e;
   return g;
 }
 
-const untestedFunction2 = () =>{
-  const a = 5
-  const b = 6
+const untestedFunction2 = () => {
+  const a = 5;
+  const b = 6;
   const c = a * b;
   const d = a + b;
   const e = a - b;
-  const g = c + d + e
+  const g = c + d + e;
   return g;
 }
 
-const untestedFunction3 = () =>{
-  const a = 5
-  const b = 6
+const untestedFunction3 = () => {
+  const a = 5;
+  const b = 6;
   const c = a * b;
   const d = a + b;
   const e = a - b;
-  const g = c + d + e
+  const g = c + d + e;
   return g;
 }
 
-const untestedFunction4 = () =>{
-  const a = 5
-  const b = 6
+const untestedFunction4 = () => {
+  const a = 5;
+  const b = 6;
   const c = a * b;
   const d = a + b;
   const e = a - b;
-  const g = c + d + e
+  const g = c + d + e;
   return g;
 }
 
-const untestedFunction5 = () =>{
-  const a = 5
-  const b = 6
+const untestedFunction5 = () => {
+  const a = 5;
+  const b = 6;
   const c = a * b;
   const d = a + b;
   const e = a - b;
-  const g = c + d + e
+  const g = c + d + e;
   return g;
 }
 
