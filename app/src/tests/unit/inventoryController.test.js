@@ -4,7 +4,6 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
-  addStock,
   removeStock,
   getAnalytics,
   getCategories,
