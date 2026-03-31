@@ -95,10 +95,7 @@ jobs:
           COVERAGE="${{ steps.coverage.outputs.coverage }}"
           THRESHOLD=50
           if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
-            echo "Code coverage ${COVERAGE}% is below threshold ${THRESHOLD}%" >> $GITHUB_STEP_SUMMARY
             exit 1
-          else
-          echo "Code coverage ${COVERAGE}% meets threshold ${THRESHOLD}%" >> $GITHUB_STEP_SUMMARY
           fi
     
 
