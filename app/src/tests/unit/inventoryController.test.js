@@ -128,7 +128,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  // describe('updateProduct', () => {
+  // describe('update1Product', () => {
   //   it('should update existing product', async () => {
   //     req.params.id = '1';
   //     req.body = {
