@@ -67,7 +67,7 @@ jobs:
             COVERAGE=$(grep -oP '\|\s+([0-9.]+)\s+\|' coverage-output.txt | tail -1 | grep -oP '[0-9.]+')
           fi
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
-          echo "Code Coverage: ${COVERAGE}%" >> $GITHUB_STEP_SUMMARY
+        
     
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
@@ -95,7 +95,10 @@ jobs:
           COVERAGE="${{ steps.coverage.outputs.coverage }}"
           THRESHOLD=50
           if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
+            echo "Code coverage ${COVERAGE}% is below threshold ${THRESHOLD}%" >> $GITHUB_STEP_SUMMARY
             exit 1
+          else
+          echo "Code coverage ${COVERAGE}% meets threshold ${THRESHOLD}%" >> $GITHUB_STEP_SUMMARY
           fi
     
 
