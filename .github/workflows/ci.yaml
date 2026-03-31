@@ -90,6 +90,18 @@ jobs:
           COVERAGE="${{ steps.coverage.outputs.coverage }}"
           echo "Tests failed. Code coverage: ${COVERAGE}% (below threshold 50%)" >> $GITHUB_STEP_SUMMARY
           exit 1
+        - name: Check coverage threshold
+      - name: Check coverage threshold
+        if: steps.test.outcome == 'success'
+        run: |
+          COVERAGE="${{ steps.coverage.outputs.coverage }}"
+          THRESHOLD=50
+          if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
+            echo "Code coverage ${COVERAGE}% is below threshold ${THRESHOLD}%" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+          echo "Code coverage ${COVERAGE}% meets threshold ${THRESHOLD}%" >> $GITHUB_STEP_SUMMARY
+          fi
     
 
   docker-build:
