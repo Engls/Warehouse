@@ -424,39 +424,53 @@ const testShutdown = async (req, res) => {
 };
 
 const untestedFunction1 = () => {
-  const a = 1;
-  const b = 2;
-  const c = a + b;
-  const d = c * 10;
-  const e = d / 2;
-  return e;
+  const a = 5;
+  const b = 6;
+  const c = a * b;
+  const d = a + b;
+  const e = a - b;
+  const g = c + d + e;
+  return g;
 };
 
 const untestedFunction2 = () => {
-  const a = 1;
-  const b = 2;
-  const c = a + b;
-  const d = c * 10;
-  const e = d / 2;
-  return e;
+  const a = 5;
+  const b = 6;
+  const c = a * b;
+  const d = a + b;
+  const e = a - b;
+  const g = c + d + e;
+  return g;
 };
 
 const untestedFunction3 = () => {
-  const a = 1;
-  const b = 2;
-  const c = a + b;
-  const d = c * 10;
-  const e = d / 2;
-  return e;
+  const a = 5;
+  const b = 6;
+  const c = a * b;
+  const d = a + b;
+  const e = a - b;
+  const g = c + d + e;
+  return g;
 };
 
 const untestedFunction4 = () => {
-  const a = 1;
-  const b = 2;
-  const c = a + b;
-  const d = c * 10;
-  const e = d / 2;
-  return e;
+  const a = 5;
+  const b = 6;
+  const c = a * b;
+  const d = a + b;
+  const e = a - b;
+  const g = c + d + e;
+  return g;
+};
+
+const untestedFunction5 = () => {
+  const a = 5;
+  const b = 6;
+  const c = a * b;
+  const d = a + b;
+  const e = a - b;
+  const g = c + d + e;
+  return g;
 };
 
 module.exports = {
@@ -475,4 +489,5 @@ module.exports = {
   untestedFunction2,
   untestedFunction3,
   untestedFunction4,
+  untestedFunction5,
 };
