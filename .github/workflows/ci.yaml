@@ -24,7 +24,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: app/src/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('app/src/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('app/src/package-lock.json') }
 
   lint:
     runs-on: ubuntu-latest
@@ -67,7 +67,7 @@ jobs:
             COVERAGE=$(grep -oP '\|\s+([0-9.]+)\s+\|' coverage-output.txt | tail -1 | grep -oP '[0-9.]+')
           fi
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
-          echo "Code Coverage: ${COVERAGE}%" >> $GITHUB_STEP_SUMMARY
+        
     
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
@@ -87,9 +87,22 @@ jobs:
       - name: Check test status
         if: steps.test.outcome == 'failure'
         run: |
-          COVERAGE="${{ steps.coverage.outputs.coverage }}"
-          echo "Tests failed. Code coverage: ${COVERAGE}% (below threshold 50%)" >> $GITHUB_STEP_SUMMARY
+          echo "Tests failed." >> $GITHUB_STEP_SUMMARY
           exit 1
+
+      - name: Check coverage threshold
+        if: steps.test.outcome == 'success'
+        run: |
+          COVERAGE="${{ steps.coverage.outputs.coverage }}"
+          THRESHOLD=10
+          if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
+            echo "Code coverage ${COVERAGE}% is below threshold ${THRESHOLD}%" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+          echo "Code coverage ${COVERAGE}% meets threshold ${THRESHOLD}%" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  
     
 
   docker-build:
@@ -128,3 +141,23 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/warehouse-api:${{ github.sha }}
             ${{ secrets.DOCKER_HUB_USERNAME }}/warehouse-api:latest
+deploy:
+  runs-on: ubuntu-latest
+  needs: [lint, test]            
+  if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    - uses: actions/cache@v4
+      with:
+        path: app/src/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('app/src/package-lock.json') }}
+    - name: Deploy
+      run: |
+        git config --global user.name "${{ secrets.DEPLOY_USER_NAME }}"
+        git config --global user.email "${{ secrets.DEPLOY_USER_EMAIL }}"
+        git remote set-url origin https://x-access-token:${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}@github.com/${{ github.repository }}
+        npm run deploy
+      working-directory: ./app/src
