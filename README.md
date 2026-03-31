@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/Engls/Warehouse/branch/main/graph/badge.svg)](https://codecov.io/gh/Engls/Warehouse)
 # Warehouse-invetory-api
 
 Прилоежнеи созданное для контроля имущества на складе  техники
@@ -10,7 +11,31 @@ database: PostgresSql
 
 # Необходимый софт
 
-Docker
+Docker / Docker-compose
+
+# Установка и запуск
+
+## Клонирование репозитория
+- git clone https://github.com/Engls/Warehouse.git
+- cd Warehouse
+## Переменные окружения
+Для работы приложения необходимо настроить переменные окружения. Создайте файл `.env` в папке `Warehouse` со следующим содержимым:
+
+- PORT=3000
+- DB_HOST=localhost
+- DB_PORT=5432
+- DB_NAME=warehouse
+- DB_USER=postgres
+- DB_PASSWORD=postgres
+- NODE_ENV=production
+
+При необходимости измените переменные под ваше окружение.
+
+## Запуск
+
+- cd Warehouse
+- docker-compose up -d 
+
 
 # API-Эндпоинты
 

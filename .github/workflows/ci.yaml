@@ -52,12 +52,45 @@ jobs:
         with:
           path: app/src/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('app/src/package-lock.json') }}
-      - run: npm test
+    
+      - name: Run tests with coverage
+        id: test
+        continue-on-error: true
+        run: |
+          npm test 2>&1 | tee coverage-output.txt
+    
+      - name: Parse coverage percentage
+        id: coverage
+        run: |
+          COVERAGE=$(grep -oP 'All files\s+\|\s+\K[0-9.]+' coverage-output.txt | head -1)
+          if [ -z "$COVERAGE" ]; then
+            COVERAGE=$(grep -oP '\|\s+([0-9.]+)\s+\|' coverage-output.txt | tail -1 | grep -oP '[0-9.]+')
+          fi
+          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+          echo "Code Coverage: ${COVERAGE}%" >> $GITHUB_STEP_SUMMARY
+    
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: app/src/coverage/
+    
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: app/src/coverage/
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+    
+      - name: Check test status
+        if: steps.test.outcome == 'failure'
+        run: |
+          COVERAGE="${{ steps.coverage.outputs.coverage }}"
+          echo "Tests failed. Code coverage: ${COVERAGE}% (below threshold 50%)" >> $GITHUB_STEP_SUMMARY
+          exit 1
+    
 
   docker-build:
     runs-on: ubuntu-latest
