@@ -170,7 +170,7 @@ jobs:
 
         - name: Wait for app to be ready
           run: |
-            for i in {1..30}; do
+            for i in {1..15}; do
               if curl -s -f http://localhost:3000/health; then
                 echo "App is ready"
                 exit 0
@@ -178,7 +178,7 @@ jobs:
               sleep 2
             done
             echo "App did not become ready"
-            docker-compose logs
+            docker compose logs
             exit 1
 
         - name: Test GET /api/products
