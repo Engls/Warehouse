@@ -147,7 +147,7 @@ jobs:
       needs: [lint, test]
       defaults:
         run:
-          working-directory: ./app
+          working-directory: .
       if: github.event_name == 'pull_request'
       steps:
         - uses: actions/checkout@v4
