@@ -186,10 +186,13 @@ jobs:
 
         - name: Test POST /api/products
           run: |
-            curl -X POST http://localhost:3000/api/products \
-              -H "Content-Type: application/json" \
-              -d '{"name":"Integration Product","category_id":1,"sku":"INT-001","quantity":10,"min_quantity":5,"price":99.99}' \
-              -f
+            status=$(curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:3000/api/products \
+            -H "Content-Type: application/json" \
+            -d '{"name":"Test","category_id":1,"sku":"T-001"}')
+            if [ "$status" -ne 201 ]; then
+              echo "Expected 201, got $status"
+              exit 1
+            fi
 
         - name: Test GET /api/categories
           run: curl -s -f http://localhost:3000/api/categories || exit 1
