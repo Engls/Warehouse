@@ -164,9 +164,9 @@ jobs:
             DB_PASSWORD=securepassword
             EOF
 
-        - name: Start containers with docker-compose
+        - name: Start containers with docker compose
           run: |
-            docker-compose up -d --build
+            docker compose up -d --build
 
         - name: Wait for app to be ready
           run: |
