@@ -141,10 +141,13 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/warehouse-api:${{ github.sha }}
             ${{ secrets.DOCKER_HUB_USERNAME }}/warehouse-api:latest
+
   integration-test:
       runs-on: ubuntu-latest
       needs: [lint, test]
-      working-directory: ./app
+      defaults:
+        run:
+          working-directory: ./app
       if: github.event_name == 'pull_request'
       steps:
         - uses: actions/checkout@v4
